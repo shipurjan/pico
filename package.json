@@ -9,7 +9,7 @@
 		"build": "del dist && tsc",
 		"build:watch": "tsc -w",
 		"dev": "parcel source/index.ts --port 23231 --no-hmr --no-cache --global Pico",
-		"dev:ext": "cd web-ext && web-ext run --firefox=nightly",
+		"dev:ext": "cd web-ext && web-ext run --firefox=/Applications/Firefox\\ Nightly.app/Contents/MacOS/firefox",
 		"prepublishOnly": "npm run build",
 		"test:interactive": "ts-node --project test/tsconfig.json test/repl.ts"
 	},
@@ -43,10 +43,10 @@
 		"import-sort-style-module": "^6.0.0",
 		"nocache": "^2.1.0",
 		"open": "^7.0.3",
-		"parcel": "^1.12.4",
-		"parcel-bundler": "^1.12.4",
+		"parcel": "1.12.3",
+		"parcel-bundler": "1.12.3",
 		"pixelmatch": "^5.1.0",
-		"playwright": "^0.11.1",
+		"playwright": "1.43.1",
 		"prettier": "^1.19.1",
 		"prettier-plugin-import-sort": "0.0.3",
 		"react": "^16.13.0",
@@ -54,7 +54,7 @@
 		"tempy": "^0.5.0",
 		"ts-node": "^8.6.2",
 		"typescript": "^3.8.3",
-		"web-ext": "^4.1.0",
+		"web-ext": "7.11.0",
 		"ws": "^7.2.3"
 	},
 	"importSort": {
