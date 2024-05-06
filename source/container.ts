@@ -2,90 +2,99 @@ import {Either, map as mapEither} from 'fp-ts/es6/Either'
 import {pipe} from 'fp-ts/es6/pipeable'
 
 import {
-	createElement,
-	createSVGElement,
-	xhtmlNS
+    createElement,
+    createSVGElement,
+    xhtmlNS
 } from './element'
 import {DetailedError} from './error'
 import {WindowInfo, getWindowInfo} from './window-info'
 
 export type Container = {
-	parentWindow: WindowInfo
-	tree: {
-		html: HTMLHtmlElement
-		head: HTMLHeadElement
-		svg: SVGSVGElement
-	}
+    parentWindow: WindowInfo
+    tree: {
+        html: HTMLHtmlElement
+        head: HTMLHeadElement
+        svg: SVGSVGElement,
+        element: Element
+    }
 }
 
 const getBackgroundColor = (
-	$window: Window,
-	$element: HTMLElement
+    $window: Window,
+    $element: HTMLElement
 ): string => {
-	const {backgroundColor} = $window.getComputedStyle($element)
-	return backgroundColor === 'transparent' ||
-		backgroundColor === 'rgba(0, 0, 0, 0)'
-		? 'white'
-		: backgroundColor
+    const {backgroundColor} = $window.getComputedStyle($element)
+    return backgroundColor === 'transparent' ||
+    backgroundColor === 'rgba(0, 0, 0, 0)'
+        ? 'white'
+        : backgroundColor
 }
 
-export const createTree = (windowInfo: WindowInfo) => {
-	const {
-		innerWidth: width,
-		innerHeight: height
-	} = windowInfo.window
+export const createTree = (windowInfo: WindowInfo, $element: Element) => {
 
-	const h = createElement(windowInfo.document)
-	const s = createSVGElement(windowInfo.document)
+    console.log($element)
 
-	const $iframe = h('iframe', {
-		width: width + 'px',
-		height: height + 'px'
-	})
+    const {
+        clientWidth: width,
+        clientHeight: height
+    } = $element;
 
-	const $svg = s('svg', {
-		width: width + 'px',
-		height: height + 'px'
-	})
+    console.log(width, height, $element)
 
-	$svg.style.backgroundColor = getBackgroundColor(
-		windowInfo.window,
-		windowInfo.body
-	)
+    const h = createElement(windowInfo.document)
+    const s = createSVGElement(windowInfo.document)
 
-	const $foreignObject = s('foreignObject', {
-		x: '0',
-		y: '0',
-		width: width + 'px',
-		height: height + 'px'
-	})
+    const $iframe = h('iframe', {
+        width: width + 'px',
+        height: height + 'px'
+    })
 
-	const $newHtml = h('html')
-	$newHtml.setAttribute('xmlns', xhtmlNS)
+    const $svg = s('svg', {
+        width: width + 'px',
+        height: height + 'px'
+    })
 
-	const $newHead = h('head')
-	$newHtml.appendChild($newHead)
+    $svg.style.backgroundColor = getBackgroundColor(
+        windowInfo.window,
+        $element as HTMLElement
+    )
 
-	$newHtml.appendChild($newHead)
+    const $foreignObject = s('foreignObject', {
+        x: '0',
+        y: '0',
+        width: width + 'px',
+        height: height + 'px'
+    })
 
-	$foreignObject.appendChild($newHtml)
-	$svg.appendChild($foreignObject)
-	$iframe.appendChild($svg)
+    const $newHtml = h('html')
+    console.log($newHtml, $newHtml.lastElementChild)
 
-	return {
-		html: $newHtml,
-		head: $newHead,
-		svg: $svg
-	}
+    $newHtml.setAttribute('xmlns', xhtmlNS)
+
+
+    const $newHead = h('head')
+    $newHtml.appendChild($newHead)
+    $newHtml.appendChild($newHead)
+    $foreignObject.appendChild($newHtml)
+    $svg.appendChild($foreignObject)
+    $iframe.appendChild($svg)
+
+    return {
+        html: $newHtml,
+        head: $newHead,
+        svg: $svg,
+        element: $element
+    }
 }
 
 export const createContainer = (
-	$window: Window
+    $window: Window,
+    $element: Element
 ): Either<DetailedError, Container> =>
-	pipe(
-		getWindowInfo($window),
-		mapEither(parentWindow => ({
-			parentWindow,
-			tree: createTree(parentWindow)
-		}))
-	)
+    pipe(
+        getWindowInfo($window),
+        mapEither(parentWindow => ({
+            parentWindow,
+            tree: createTree(parentWindow, $element)
+        }))
+    )
