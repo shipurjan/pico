@@ -221,7 +221,7 @@ const removeNodesMatchingSelectors = (selectors: string[]) => (
 // (ugly)
 export const cloneBody = ($element: Element,
                           ignoredSelectors: string[],
-                          bodyCallback: (clonedBody: HTMLBodyElement, clonedElement: Node) => HTMLBodyElement) => (
+                          bodyCallback: (clonedBody: HTMLBodyElement, clonedElement: Element) => HTMLBodyElement) => (
     container: Container
 ): Container => {
     attachCloneID(container.parentWindow.html)
@@ -239,7 +239,7 @@ export const cloneBody = ($element: Element,
 
     const $clonedBody = bodyCallback(container.parentWindow.body.cloneNode(
         true
-    ) as HTMLBodyElement, $element.cloneNode(true));
+    ) as HTMLBodyElement, $element.cloneNode(true) as Element);
 
 
     removeNodesMatchingSelectors(ignoredSelectors)($clonedBody)
