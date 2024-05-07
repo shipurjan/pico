@@ -1,11 +1,11 @@
 <div align="center">
 <br>
-<img height="200px" src="https://github.com/gripeless/pico/blob/master/media/pico-shadow.png?raw=true">
+<img height="200px" src="https://github.com/shiputils/pico/blob/master/media/pico-shadow.png?raw=true">
 <h3>📸 Pico</h3>
 <p>Take browser screenshots in Javascript</p>
-<img src="https://img.shields.io/npm/v/@gripeless/pico" alt="npm">
-<img src="https://img.shields.io/github/issues/gripeless/pico" alt="GitHub issues">
-<img src="https://img.shields.io/bundlephobia/minzip/@gripeless/pico?label=compressed" alt="Compressed size">
+<img src="https://img.shields.io/npm/v/@shiputils/pico" alt="npm">
+<img src="https://img.shields.io/github/issues/shiputils/pico" alt="GitHub issues">
+<img src="https://img.shields.io/bundlephobia/minzip/@shiputils/pico?label=compressed" alt="Compressed size">
 
 </div>
 
@@ -13,18 +13,18 @@
 <br>
 
 <div>
-	<img width="49%" src="https://github.com/gripeless/pico/blob/master/media/wikipedia-real.png?raw=true">
-	<img width="50%" src="https://github.com/gripeless/pico/blob/master/media/wikipedia-pico.png?raw=true">
+	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/wikipedia-real.png?raw=true">
+	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/wikipedia-pico.png?raw=true">
 </div>
 
 <div>
-	<img width="49%" src="https://github.com/gripeless/pico/blob/master/media/firebase-real.png?raw=true">
-	<img width="50%" src="https://github.com/gripeless/pico/blob/master/media/firebase-pico.png?raw=true">
+	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/firebase-real.png?raw=true">
+	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/firebase-pico.png?raw=true">
 </div>
 
 <div>
-	<img width="49%" src="https://github.com/gripeless/pico/blob/master/media/gripeless-real.png?raw=true">
-	<img width="50%" src="https://github.com/gripeless/pico/blob/master/media/gripeless-pico.png?raw=true">
+	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/shiputils-real.png?raw=true">
+	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/shiputils-pico.png?raw=true">
 </div>
 
 <div align="center"><sub>(Original page on the left · PNG output on the right)</sub></div>
@@ -187,7 +187,7 @@ devtools, for real uses prefer the other functions.
 # Installation
 
 ```bash
-$ npm install @gripeless/pico
+$ npm install @shiputils/pico
 ```
 
 The module is intended to be used exclusively in the browser via a code bundler
