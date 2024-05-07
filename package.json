@@ -1,5 +1,5 @@
 {
-	"name": "@gripeless/pico",
+	"name": "@shiputils/pico",
 	"publishConfig": {
 		"access": "public"
 	},
