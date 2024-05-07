@@ -17,6 +17,10 @@
 		"dist",
 		"source"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shipurjan/pico"
+	},
 	"dependencies": {
 		"fluture": "^12.2.0",
 		"fp-ts": "^2.5.3",
