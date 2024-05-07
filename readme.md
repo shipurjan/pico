@@ -1,6 +1,4 @@
 <div align="center">
-<br>
-<img height="200px" src="https://github.com/shiputils/pico/blob/master/media/pico-shadow.png?raw=true">
 <h3>📸 Pico</h3>
 <p>Take browser screenshots in Javascript</p>
 <img src="https://img.shields.io/npm/v/@shiputils/pico" alt="npm">

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "del dist && tsc",
@@ -12,6 +12,10 @@
 		"dev:ext": "cd web-ext && web-ext run --firefox=/Applications/Firefox\\ Nightly.app/Contents/MacOS/firefox",
 		"prepublishOnly": "npm run build",
 		"test:interactive": "ts-node --project test/tsconfig.json test/repl.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/npm/cli.git"
 	},
 	"files": [
 		"dist",
