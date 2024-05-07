@@ -31,15 +31,10 @@ const getBackgroundColor = (
 }
 
 export const createTree = (windowInfo: WindowInfo, $element: Element) => {
-
-    console.log($element)
-
     const {
         clientWidth: width,
         clientHeight: height
     } = $element;
-
-    console.log(width, height, $element)
 
     const h = createElement(windowInfo.document)
     const s = createSVGElement(windowInfo.document)
@@ -67,7 +62,6 @@ export const createTree = (windowInfo: WindowInfo, $element: Element) => {
     })
 
     const $newHtml = h('html')
-    console.log($newHtml, $newHtml.lastElementChild)
 
     $newHtml.setAttribute('xmlns', xhtmlNS)
 
