@@ -4,35 +4,15 @@
 <h3>📸 Pico</h3>
 <p>Take browser screenshots in Javascript</p>
 <img src="https://img.shields.io/npm/v/@shiputils/pico" alt="npm">
-<img src="https://img.shields.io/github/issues/shiputils/pico" alt="GitHub issues">
+<img src="https://img.shields.io/github/issues/shipurjan/pico" alt="GitHub issues">
 <img src="https://img.shields.io/bundlephobia/minzip/@shiputils/pico?label=compressed" alt="Compressed size">
 
 </div>
 
-
-<br>
-
-<div>
-	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/wikipedia-real.png?raw=true">
-	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/wikipedia-pico.png?raw=true">
-</div>
-
-<div>
-	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/firebase-real.png?raw=true">
-	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/firebase-pico.png?raw=true">
-</div>
-
-<div>
-	<img width="49%" src="https://github.com/shiputils/pico/blob/master/media/shiputils-real.png?raw=true">
-	<img width="50%" src="https://github.com/shiputils/pico/blob/master/media/shiputils-pico.png?raw=true">
-</div>
-
-<div align="center"><sub>(Original page on the left · PNG output on the right)</sub></div>
-
-<br>
+# Difference with @gripeless/pico
+This library allows you to take screenshots of DOM elements, not just the entire window object
 
 ---
-
 
 # Goal
 
