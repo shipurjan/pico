@@ -1,6 +1,5 @@
 <div align="center">
 <br>
-<img height="200px" src="https://github.com/shiputils/pico/blob/master/media/pico-shadow.png?raw=true">
 <h3>📸 Pico</h3>
 <p>Take browser screenshots in Javascript</p>
 <img src="https://img.shields.io/npm/v/@shiputils/pico" alt="npm">
@@ -10,7 +9,11 @@
 </div>
 
 # Difference with @gripeless/pico
-This library allows you to take screenshots of DOM elements, not just the entire window object
+
+This library allows you to take screenshots of DOM elements, not just the entire window object.
+
+Additionally you can edit the body DOM before taking the screenshot using `bodyCallback` option, to maybe include some
+parent elements that are not part of the element you want to keep in the screenshot.
 
 ---
 
@@ -28,7 +31,6 @@ a headless browser.
 
 At the time of writing there are no existing solutions that are aimed
 of reproducing the entire viewport accurately like Pico.
-
 
 # How it works
 
@@ -55,26 +57,29 @@ tags (or in our case, `<canvas>`') cannot display any external resources,
 whether it's images, fonts or stylesheets.
 
 To work around that fact Pico does the following things:
+
 - Downloads and inlines contents of all `<img>` tags as data URL's in their `src`
   attributes
 - Downloads external stylesheets and inlines them as `<style>` tags
 - Checks all stylesheets for nested resources
-	- Downloads and checks nested stylesheets in `@import` rules
-	- Downloads any resources referenced by the `url()` function, including
-	  but not exclusive to the following properties:
-		- `background`s
-		- `background-image`s
-		- `src` in `@font-face` rule
-		- `cursor`
-		- `content`
+    - Downloads and checks nested stylesheets in `@import` rules
+    - Downloads any resources referenced by the `url()` function, including
+      but not exclusive to the following properties:
+        - `background`s
+        - `background-image`s
+        - `src` in `@font-face` rule
+        - `cursor`
+        - `content`
 
 In addition, Pico also:
+
 - Copies input states (text inputs, checkboxes, textareas) into `value`
   attributes so that they can be shown in SVG
 - Emulates current scroll positions on all scrolled elements (including the
   root `<html>` element) via either `transform: translate` (for root node)
   and `absolute` positioning of children of scrolled nodes
-- Transforms existing `<canvas>` elements into `<img>` tags with the contents of the `<canvas>`' inlined as data URL's in `src`
+- Transforms existing `<canvas>` elements into `<img>` tags with the contents of the `<canvas>`' inlined as data URL's
+  in `src`
 - Performs various minor fixes for `rem` font size, working media queries,
   preserving size of everything, etc.
 
@@ -89,7 +94,6 @@ Pico is able to safely accumulate all async resource errors thanks to
 alternative to the native `Promise` and forces you to write type safe
 errors. You can read a [fantastic introductory article to it by the
 library's author here](https://dev.to/avaq/fluture-a-functional-alternative-to-promises-21b).
-
 
 # API
 
@@ -125,16 +129,19 @@ export declare type DetailedError = {
 export declare type Options = {
     // An array of selectors to nodes that should not be included in the output.
     ignore: string[];
+    //A callback that allows you to modify the body of the cloned document.
+    bodyCallback: (clonedBody: HTMLBodyElement, clonedElement: Element) => HTMLBodyElement
 };
 ```
 
 ## Functions
 
 ```typescript
-declare const objectURL: ($window: Window, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
-declare const objectURLFluture: ($window: Window, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
+declare const objectURL: ($element: Element, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
+declare const objectURLFluture: ($element: Element, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
 ```
-Render the given `Window` to a PNG image and return it as an
+
+Render the given `Element` to a PNG image and return it as an
 [object URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL).
 This is safer to use than `dataURL` due to memory constraints. Remember to call
 [`URL.revokeObjectURL`](https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL)
@@ -143,10 +150,11 @@ when you're done with the image.
 ---
 
 ```typescript
-declare const dataURL: ($window: Window, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
-declare const dataURLFluture: ($window: Window, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
+declare const dataURL: ($element: Element, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
+declare const dataURLFluture: ($element: Element, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
 ```
-Render the given `Window` to a PNG image and return it as a
+
+Render the given `Element` to a PNG image and return it as a
 [data url](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 Note that
 [in Chrome the limit for data url's is 2MB](https://stackoverflow.com/a/41755526),
@@ -155,11 +163,11 @@ prefer `objectURL` when possible.
 ---
 
 ```typescript
-declare const svgObjectURL: ($window: Window, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
-declare const svgObjectURLFluture: ($window: Window, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
+declare const svgObjectURL: ($element: Element, partialOptions?: Partial<Options>) => Promise<ErrorStack<string>>;
+declare const svgObjectURLFluture: ($element: Element, options: Options) => Fluture<DetailedError, ErrorStack<string>>;
 ```
 
-Render the given `Window` to an SVG image and return it as an
+Render the given `Element` to an SVG image and return it as an
 [object URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL).
 This function is mainly useful for inspecting the output of Pico using
 devtools, for real uses prefer the other functions.
@@ -174,11 +182,9 @@ The module is intended to be used exclusively in the browser via a code bundler
 like Rollup or Webpack. There is no single file bundle build provided at this
 time.
 
-
 # Contributing
 
 See [contributing.md](contributing.md).
-
 
 # Caveats
 
@@ -186,12 +192,13 @@ Pico is being developed against recent Firefox and Blink based browsers
 (Chrome, Opera, Brave, Edge). It does not work on Safari or old Edge versions
 due to lack of proper support for `<foreignObject>`.
 
-
 # Prior art
 
 Pico's code was inspired in many ways by the following libraries:
 
-- [dom-to-image](https://github.com/tsayen/dom-to-image) (and its sisters [dom-to-image-more](https://github.com/1904labs/dom-to-image-more) and [html-to-image](https://github.com/bubkoo/html-to-image#readme))
+- [dom-to-image](https://github.com/tsayen/dom-to-image) (and its
+  sisters [dom-to-image-more](https://github.com/1904labs/dom-to-image-more)
+  and [html-to-image](https://github.com/bubkoo/html-to-image#readme))
 - [rasterizeHTML.js](https://github.com/cburgmer/rasterizeHTML.js)
 - [html2canvas](https://github.com/niklasvh/html2canvas)
 
